@@ -1,0 +1,108 @@
+﻿<Page
+    x:Class="OnlineChatApp.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:OnlineChatApp.Views"
+    xmlns:viewModels="using:OnlineChatApp.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource Background}"
+    Foreground="{ThemeResource Foreground}"
+    DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
+    d:DataContext="{d:DesignInstance Type=viewModels:LoginViewModel,IsDesignTimeCreatable=True}">
+
+    <Page.Resources>
+        <Storyboard x:Name="fadeIn">
+            <DoubleAnimation
+                Storyboard.TargetName="avatarContainer"
+                Storyboard.TargetProperty="Height"
+                Duration="0:0:1"
+                From="420" To="200"
+                EnableDependentAnimation="True"/>
+        </Storyboard>
+    </Page.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="{ThemeResource Background}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <!--avatar container-->
+        <Grid x:Name="avatarContainer" Grid.Row="0" Height="200">
+            <!--<Image Height="100" Width="100" Source="ms-appx:///Assets/avatar/1000.jpg"/>-->
+            <Border
+                Height="150"
+                Width="150"
+                BorderBrush="White"
+                BorderThickness="3" 
+                CornerRadius="90"
+                VerticalAlignment="Center">
+                <Border.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="ms-appx:///Assets/avatar/383190650.jpg" />
+                </Border.Background>
+            </Border>
+        </Grid>
+
+        <!--Inputs-->
+        <Grid Grid.Row="1">
+            <Border Margin="20,0" Height="40" Width="250" Background="White" Padding="5,0" CornerRadius="10,10,0,0" VerticalAlignment="Top" BorderThickness="0.1">
+                <TextBox 
+                Height="30"
+                Background="Azure" 
+                BorderThickness="0"
+                SelectionHighlightColor="#555"
+                Foreground="Black"
+                TextAlignment="Left"
+                TextWrapping="Wrap"
+                FontSize="18"
+                InputScope="Number"
+                PlaceholderText="手机号/BB号"
+                Text="{Binding Username,Mode=TwoWay}"/>
+            </Border>
+            <Border Margin="20,40,20,0" Height="40" Width="250" Background="White" Padding="5,0" CornerRadius="0,0,10,10" VerticalAlignment="Top">
+                <PasswordBox 
+                Height="30"
+                Background="Azure" 
+                BorderBrush="{x:Null}"
+                BorderThickness="0"
+                SelectionHighlightColor="#555"
+                Foreground="Black"
+                PasswordChar="*"
+                FontSize="18"
+                PlaceholderText="密码"
+                Password="{Binding Password,Mode=TwoWay}"/>
+            </Border>
+            <!--Sign in Button-->
+            <Border  Margin="20,125,20,0" Height="40" Width="255" Background="Green" CornerRadius="10" VerticalAlignment="Top">
+                <Button Height="40" Width="250" Foreground="White" Background="Transparent" HorizontalAlignment="Center" Content="Sign in"  FontSize="20" Command="{Binding LoginCommand}"  CommandParameter="{Binding}" >
+                </Button>
+            </Border>
+        </Grid>
+        <!--BottomSelection-->
+        <Grid Grid.Row="2" Background="#ff1A8553">
+            <HyperlinkButton Content="无法登录" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="60,0,0,0" Command="{Binding AboutCommand}">
+            </HyperlinkButton>
+            <HyperlinkButton Content="新用户" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,60,0" Command="{Binding NewUserCommand}"/>
+            <TextBlock Text="Copyright © 2016 - 2016 腾飞哔哔" Foreground="#999" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,6"/>
+        </Grid>
+
+        <!--ExitTips-->
+        <!--<Border x:Name="exitTips" Background="#99000000" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="5" Grid.RowSpan="3" Margin="0,0,0,100" Opacity="0">
+            <Border.Resources>
+                <Storyboard x:Name="tipsFade">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="exitTips" Storyboard.TargetProperty="(UIElement.Opacity)" AutoReverse="False">
+                        <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="1"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+            </Border.Resources>
+            <TextBlock Text="再按一次退出" Width="120" Margin="10,5" FontSize="14" TextAlignment="Center" Foreground="White"/>
+        </Border>-->
+
+        <ProgressRing IsActive="{Binding Loading}" Width="50" Height="50" Grid.RowSpan="4" Foreground="{StaticResource Foreground}" Margin="0,-120,0,0" />
+    </Grid>
+</Page>
